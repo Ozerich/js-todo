@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>TODO by Vital Ozierski</title>
+
+    <link rel="stylesheet" type="text/less" href="css/reset.css">
+    <link rel="stylesheet" type="text/less" href="css/main.less">
+
+    <script src="js/thirdparty/jquery-1.9.1.min.js"></script>
+    <script src="js/thirdparty/knockout-2.2.1.js"></script>
+    <script src="js/thirdparty/less-1.3.3.min.js"></script>
+
+    <script src="js/script.js"></script>
+
+</head>
+
+<body>
+
+<div id="page">
+
+    <section class="filter-block">
+        <h2>Фильтр:</h2>
+
+        <div class="param">
+            <label for="filter_type">Тип:</label>
+            <select id="filter_type"
+                    data-bind="options: types, optionsCaption: 'Все', optionsText: function(item){return item.getName()}, optionsValue: function(item){return item.getId()}, value: selectedFilterType"></select>
+        </div>
+
+        <div class="param">
+            <label for="filter_done">Сделано:</label>
+            <select id="filter_done"
+                    data-bind="options: [0, 1], optionsText: function(item){return item == 0 ? 'Нет' : 'Да'}, optionsCaption: 'Все', value: selectedFilterDone"></select>
+        </div>
+
+    </section>
+
+    <section class="tasks-block">
+        <h2>Задачи:</h2>
+
+
+        <table class="tasks-table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Задача</th>
+                <th>Тип</th>
+                <th>Создана</th>
+                <th>Дата завершения</th>
+                <th>Осталось</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tbody data-bind="visible: loadingError().toString().length === 0 && !isLoading() && filteredTasks().length == 0">
+            <tr class="no-data">
+                <td colspan="10">
+                    Нет задач
+                </td>
+            </tr>
+            <tbody>
+
+            <tbody data-bind="visible: isLoading() || loadingError()">
+            <tr class="no-data">
+                <td colspan="10" data-bind="visible: isLoading()">
+                    Загрузка данных....
+                </td>
+                <td colspan="10" data-bind="visible: loadingError(), text: loadingError"></td>
+            </tr>
+            <tbody>
+
+            <tbody data-bind="visible: loadingError().toString().length === 0 && filteredTasks().length > 0, foreach: filteredTasks">
+            <tr data-bind="css: {'done': done()}">
+                <td><input type="checkbox" data-bind="checked: done"/></td>
+                <td data-bind="text: getName()"></td>
+                <td data-bind="text: getType()"></td>
+                <td data-bind="text: TODO.Helper.dateToStr(created_at())"></td>
+                <td data-bind="text: TODO.Helper.dateToStr(expires_at())"></td>
+                <td data-bind="text: remainingTime"></td>
+            </tr>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="new-task-block">
+        <h2>Новая задача</h2>
+
+        <div class="param">
+            <label for="new_name">Задача:</label>
+            <input type="text" id="new_name" data-bind="value: newTask"/>
+        </div>
+
+        <div class="param">
+            <label for="new_type">Тип задачи:</label>
+            <select id="new_type" data-bind="options: types, optionsCaption: 'Выберите задачу',value: newType"></select>
+        </div>
+
+        <div class="param param-datetime">
+            <label for="new_expires_at">Дата завершения:</label>
+            <input type="date" id="new_expires_at" data-bind="value: newExpiresAtDate"/>
+            <input type="time" data-bind="value: newExpiresAtTime"/>
+        </div>
+
+        <button data-bind="click: submitAdd">Добавить</button>
+        <span class="error" data-bind="text: submitError"></span>
+
+    </section>
+
+</div>
+
+<footer>
+    <small>ToDO application, using KnockoutJS &copy; <a href="mailto:ozicoder@gmail.com">Vital Ozierski</a></small>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+body {
+  font-size: 13px;
+  width: 650px;
+  margin: 100px auto 0;
+}
+
+section {
+  margin-bottom: 15px;
+  > h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+}
+
+.filter-block {
+  .param {
+    display: inline-block;
+    margin-right: 10px;
+
+    select {
+      width: 100px;
+    }
+  }
+}
+
+.tasks-block {
+  position: relative;
+
+  .tasks-table {
+    width: 100%;
+
+    th, td {
+      padding: 3px 5px;
+      border-bottom: 1px solid;
+      border-top: 1px solid;
+      border-color: #aaa;
+    }
+
+    th {
+      border-top: none;
+    }
+
+    thead {
+      th {
+        font-weight: bold;
+        text-align: left;
+      }
+    }
+
+    tr.done {
+      td {
+        text-decoration: line-through;
+      }
+    }
+
+    .no-data {
+      td {
+        text-align: center;
+        font-weight: bold;
+        padding: 5px 0;
+        font-size: 18px;
+      }
+    }
+  }
+
+}
+
+.new-task-block {
+  label {
+    display: inline-block;
+    width: 100px;
+  }
+
+  input[type=text] {
+    width: 300px;
+    margin-left: 2px;
+  }
+
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+
+  button {
+    width: 100px;
+  }
+
+}
+
+footer{
+  border-top: 1px dashed #aaa;
+  width: 600px;
+  text-align: center;
+  line-height: 50px;
+  a{
+    color: #aaa;
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
